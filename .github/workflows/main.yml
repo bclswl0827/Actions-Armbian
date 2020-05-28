@@ -12,10 +12,8 @@ on:
 #    types: started
 
 env:
-  REPO_URL: https://github.com/armbian/build
-  REPO_BRANCH: s5p6818-purge
+  SOURCE_URL: https://github.com/armbian/build/archive/s5p6818-purge.tar.gz
   BOARD: orangepilite
-  BRANCH: default
   RELEASE: jessie
   BUILD_MINIMAL: yes
   BUILD_DESKTOP: no
@@ -37,17 +35,21 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo -E apt-get -qq update
-        sudo -E apt-get -qq install git -y
+        sudo -E apt-get -qq install curl -y
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
-    - name: Clone source code
-      run: git clone --depth 1 $REPO_URL -b $REPO_BRANCH armbian
+
+    - name: Download source code
+      run: |
+        curl -L -o armbian.tar.gz --url $SOURCE_URL
+        tar -xvf armbian.tar.gz
+        rm -rf armban.tar.gz
 
     - name: Compile firmware
       id: compile
       run: |
-        cd armbian
-        sudo ./compile.sh BOARD=$BOARD BRANCH=$BRANCH RELEASE=$RELEASE BUILD_MINIMAL=$BUILD_MINIMAL BUILD_DESKTOP=$BUILD_DESKTOP KERNEL_ONLY=$KERNEL_ONLY KERNEL_CONFIGURE=$KERNEL_CONFIGURE
+        cd *
+        sudo -E ./compile.sh BOARD=$BOARD RELEASE=$RELEASE BUILD_MINIMAL=$BUILD_MINIMAL BUILD_DESKTOP=$BUILD_DESKTOP KERNEL_ONLY=$KERNEL_ONLY KERNEL_CONFIGURE=$KERNEL_CONFIGURE
         mkdir img
         mv *.img img/
         echo "::set-output name=status::success"
