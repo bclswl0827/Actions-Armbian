@@ -13,13 +13,13 @@ on:
 
 env:
   RELEASE_SOURCE_TAG: s5p6818-purge
-  BOARD: orangepilite
-  RELEASE: jessie
   BUILD_MINIMAL: yes
-  BUILD_DESKTOP: no
   KERNEL_ONLY: no
   KERNEL_CONFIGURE: no
-  UPLOAD_DIR: true
+  BOARD: orangepilite
+  BRANCH: legacy
+  RELEASE: jessie
+  BUILD_DESKTOP: no
 
 jobs:
   build:
@@ -46,17 +46,16 @@ jobs:
         rm -rf armbian.tar.gz
 
     - name: Compile firmware
-      id: compile
+      id: build
       run: |
         cd armbian-build*
-        sudo ./compile.sh BOARD=$BOARD RELEASE=$RELEASE BUILD_MINIMAL=$BUILD_MINIMAL BUILD_DESKTOP=$BUILD_DESKTOP KERNEL_ONLY=$KERNEL_ONLY KERNEL_CONFIGURE=$KERNEL_CONFIGURE
-        mkdir img
-        mv *.img img/
+        sudo -E ./compile.sh BUILD_MINIMAL=$BUILD_MINIMAL KERNEL_ONLY=$KERNEL_ONLY KERNEL_CONFIGURE=$KERNEL_CONFIGURE BOARD=$BOARD BRANCH=$BRANCH RELEASE=$RELEASE BUILD_DESKTOP=$BUILD_DESKTOP FORCE_USE_RAMDISK=yes USE_CCACHE=yes
         echo "::set-output name=status::success"
+        tar -cjvf /tmp/Armbian.tar.bz2 output/images/*.img
 
-    - name: Upload Armbian directory
+    - name: Upload Armbian image
       uses: actions/upload-artifact@master
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_DIR == 'true'
+      if: steps.build.outputs.status == 'success'
       with:
         name: Armbian_firmware
-        path: armbian/img/
+        path: /tmp/Armbian.tar.bz2
