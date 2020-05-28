@@ -45,11 +45,11 @@ jobs:
         tar -xzf armbian.tar.gz
         rm -rf armbian.tar.gz
 
-    - name: Compile firmware
+    - name: Build Armbian
       id: build
       run: |
         cd armbian-build*
-        sudo -E ./compile.sh BUILD_MINIMAL=$BUILD_MINIMAL KERNEL_ONLY=$KERNEL_ONLY KERNEL_CONFIGURE=$KERNEL_CONFIGURE BOARD=$BOARD BRANCH=$BRANCH RELEASE=$RELEASE BUILD_DESKTOP=$BUILD_DESKTOP FORCE_USE_RAMDISK=yes USE_CCACHE=yes
+        sudo -E ./compile.sh BUILD_MINIMAL=$BUILD_MINIMAL KERNEL_ONLY=$KERNEL_ONLY KERNEL_CONFIGURE=$KERNEL_CONFIGURE BOARD=$BOARD BRANCH=$BRANCH RELEASE=$RELEASE BUILD_DESKTOP=$BUILD_DESKTOP FORCE_USE_RAMDISK=yes
         echo "::set-output name=status::success"
         tar -cjvf /tmp/Armbian.tar.bz2 output/images/*.img
 
