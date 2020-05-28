@@ -17,7 +17,7 @@ env:
   KERNEL_ONLY: no
   KERNEL_CONFIGURE: no
   BOARD: orangepilite
-  BRANCH: next
+  BRANCH: current
   RELEASE: jessie
   BUILD_DESKTOP: no
 
