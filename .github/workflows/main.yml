@@ -13,7 +13,7 @@ on:
 
 env:
   REPO_URL: https://github.com/armbian/build
-  REPO_BRANCH: v19.08
+  REPO_BRANCH: s5p6818-purge
   BOARD: orangepilite
   BRANCH: default
   RELEASE: jessie
@@ -47,7 +47,7 @@ jobs:
       id: compile
       run: |
         cd armbian
-        ./compile.sh BOARD=$BOARD BRANCH=$BRANCH RELEASE=$RELEASE BUILD_MINIMAL=$BUILD_MINIMAL BUILD_DESKTOP=$BUILD_DESKTOP KERNEL_ONLY=$KERNEL_ONLY KERNEL_CONFIGURE=$KERNEL_CONFIGURE
+        sudo ./compile.sh BOARD=$BOARD BRANCH=$BRANCH RELEASE=$RELEASE BUILD_MINIMAL=$BUILD_MINIMAL BUILD_DESKTOP=$BUILD_DESKTOP KERNEL_ONLY=$KERNEL_ONLY KERNEL_CONFIGURE=$KERNEL_CONFIGURE
         echo "::set-output name=status::success"
 
     - name: Upload Armbian directory
