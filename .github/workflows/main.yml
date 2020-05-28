@@ -12,12 +12,12 @@ on:
 #    types: started
 
 env:
-  RELEASE_SOURCE_TAG: s5p6818-purge
+  RELEASE_SOURCE_TAG: sunxi-4.14
   BUILD_MINIMAL: yes
   KERNEL_ONLY: no
   KERNEL_CONFIGURE: no
   BOARD: orangepilite
-  BRANCH: current
+  BRANCH: next
   RELEASE: jessie
   BUILD_DESKTOP: no
 
