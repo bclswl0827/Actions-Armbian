@@ -48,6 +48,8 @@ jobs:
       run: |
         cd armbian
         sudo ./compile.sh BOARD=$BOARD BRANCH=$BRANCH RELEASE=$RELEASE BUILD_MINIMAL=$BUILD_MINIMAL BUILD_DESKTOP=$BUILD_DESKTOP KERNEL_ONLY=$KERNEL_ONLY KERNEL_CONFIGURE=$KERNEL_CONFIGURE
+        mkdir img
+        mv *.img img/
         echo "::set-output name=status::success"
 
     - name: Upload Armbian directory
@@ -55,4 +57,4 @@ jobs:
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_DIR == 'true'
       with:
         name: Armbian_firmware
-        path: armbian/
+        path: armbian/img/
