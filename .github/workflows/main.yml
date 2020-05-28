@@ -12,7 +12,7 @@ on:
 #    types: started
 
 env:
-  RELEASE_SOURCE_TAG: s5p6818-purge
+  RELEASE_SOURCE_TAG: sunxi-4.20
   BUILD_MINIMAL: yes
   KERNEL_ONLY: no
   KERNEL_CONFIGURE: no
@@ -49,7 +49,7 @@ jobs:
       id: build
       run: |
         cd armbian-build*
-        sudo -E ./compile.sh BUILD_MINIMAL=$BUILD_MINIMAL KERNEL_ONLY=$KERNEL_ONLY KERNEL_CONFIGURE=$KERNEL_CONFIGURE BOARD=$BOARD BRANCH=$BRANCH RELEASE=$RELEASE BUILD_DESKTOP=$BUILD_DESKTOP FORCE_USE_RAMDISK=yes
+        sudo -E ./compile.sh BUILD_MINIMAL=$BUILD_MINIMAL KERNEL_ONLY=$KERNEL_ONLY KERNEL_CONFIGURE=$KERNEL_CONFIGURE BOARD=$BOARD BRANCH=$BRANCH RELEASE=$RELEASE BUILD_DESKTOP=$BUILD_DESKTOP
         echo "::set-output name=status::success"
         tar -cjvf /tmp/Armbian.tar.bz2 output/images/*.img
 
