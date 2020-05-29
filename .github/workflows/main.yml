@@ -12,12 +12,12 @@ on:
 #    types: started
 
 env:
-  RELEASE_SOURCE_TAG: v2017.11
-  BUILD_MINIMAL: yes
+  RELEASE_SOURCE_TAG: cubox-purge
+  BUILD_MINIMAL: no
   KERNEL_ONLY: no
   KERNEL_CONFIGURE: no
   BOARD: orangepilite
-  BRANCH: next
+  BRANCH: default
   RELEASE: jessie
   BUILD_DESKTOP: no
 
