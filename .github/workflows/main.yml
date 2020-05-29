@@ -12,12 +12,12 @@ on:
 #    types: started
 
 env:
-  RELEASE_SOURCE_TAG: cubox-purge
-  BUILD_MINIMAL: no
+  RELEASE_SOURCE_TAG: s500-eol
+  BUILD_MINIMAL: yes
   KERNEL_ONLY: no
   KERNEL_CONFIGURE: no
   BOARD: orangepilite
-  BRANCH: default
+  BRANCH: next
   RELEASE: jessie
   BUILD_DESKTOP: no
 
